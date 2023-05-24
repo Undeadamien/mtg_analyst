@@ -48,7 +48,7 @@ def card_by_artist(df: pd.DataFrame):
 
 def main():
 
-    df = pd.read_csv("./raw_data/cards.csv")
+    df = pd.read_csv("./cards.csv")
     df = df.dropna(subset=["artist", "name", "isReprint"])
 
     plot_reprint(df)
