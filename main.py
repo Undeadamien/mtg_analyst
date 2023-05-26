@@ -1,20 +1,32 @@
-import pandas as pd
 import matplotlib.pyplot as plt
+import pandas as pd
 
 
 def plot_reprint(df: pd.DataFrame):
+    """
+    Plot a pie, showing the percentage of cards who are reprint of others cards
+    """
+
+    df = df.dropna(subset=["artist", "name", "isReprint"])
 
     total_print = df.shape[0]
-
-    df = df["isReprint"]\
-        .value_counts()\
-        .rename({0: "original card", 1: "reprint"})
+    df = df["isReprint"].value_counts()
+    df = df.rename({0: "original card", 1: "reprint"})
 
     plot = df.plot(kind="pie", autopct="%1.1f%%", ylabel="",
                    title=f"From {total_print} printed card")
 
+    plt.show()
 
-def card_by_artist(df: pd.DataFrame):
+
+def plot_artist(df: pd.DataFrame):
+    """
+    Plot the number of card by each illustrated by each artist,
+    seperate the cards illustrated by one artist and the cards illustrated
+    by a duo of artist.
+    """
+
+    df = df.dropna(subset=["artist", "name", "isReprint"])
 
     df["mask"] = df["artist"].str.contains("&")
 
@@ -45,16 +57,40 @@ def card_by_artist(df: pd.DataFrame):
     duo_plot.set_xlabel(f"{df_duo.shape[0]} different duo of artist")
     duo_plot.set_title("")
 
+    plt.show()
+
+
+def plot_mana_cost(df: pd.DataFrame):
+    """
+    Plot the cards by their mana cost
+    """
+
+    # Gleemax as a mana cost of 1000000.0
+    # Little girl as a mana cost of 0.5
+    # i prefer to exclude both because they affect the plot too much
+    df = df.loc[(df["manaValue"] <= 16) & (df["manaValue"] % 1 == 0)]
+    df["manaValue"] = df["manaValue"].astype(int)
+
+    df = df.drop_duplicates(subset=["name", "manaValue"])\
+        .value_counts("manaValue")\
+        .sort_index()\
+
+    plot = df.plot(kind="bar", rot=0)
+    plot.bar_label(plot.containers[0])
+    plot.tick_params("y", which="both", left=False, labelleft=False)
+    plot.set_xlabel("Mana value")
+    plot.set_title("")
+
+    plt.show()
+
 
 def main():
 
     df = pd.read_csv("./cards.csv")
-    df = df.dropna(subset=["artist", "name", "isReprint"])
 
     plot_reprint(df)
-    card_by_artist(df)
-
-    plt.show()
+    plot_mana_cost(df)
+    plot_artist(df)
 
 
 if __name__ == "__main__":
