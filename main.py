@@ -65,12 +65,6 @@ def plot_mana_cost(df: pd.DataFrame):
     Plot the cards by their mana cost
     """
 
-    # Gleemax as a mana cost of 1000000.0
-    # Little girl as a mana cost of 0.5
-    # i prefer to exclude both because they affect the plot too much
-    df = df.loc[(df["manaValue"] <= 16) & (df["manaValue"] % 1 == 0)]
-    df["manaValue"] = df["manaValue"].astype(int)
-
     df = df.drop_duplicates(subset=["name", "manaValue"])\
         .value_counts("manaValue")\
         .sort_index()\
@@ -88,10 +82,9 @@ def main():
 
     df = pd.read_csv("./cards.csv")
 
-    plot_reprint(df)
     plot_mana_cost(df)
+    plot_reprint(df)
     plot_artist(df)
-
 
 if __name__ == "__main__":
     main()
