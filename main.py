@@ -13,8 +13,12 @@ def plot_reprint(df: pd.DataFrame):
     df = df["isReprint"].value_counts()
     df = df.rename({0: "original card", 1: "reprint"})
 
-    plot = df.plot(kind="pie", autopct="%1.1f%%", ylabel="",
-                   title=f"From {total_print} printed card")
+    plot = df.plot(
+        kind="pie",
+        autopct="%1.1f%%",
+        ylabel="",
+        title=f"From {total_print} printed card",
+    )
 
     plt.show()
 
@@ -31,17 +35,11 @@ def plot_artist(df: pd.DataFrame):
     df["mask"] = df["artist"].str.contains("&")
 
     # remove the two sided cards
-    df = df[["artist", "name", "mask"]]\
-        .drop_duplicates()
+    df = df[["artist", "name", "mask"]].drop_duplicates()
 
     # seperate the solo and duo illustration
-    df_solo = df[~df["mask"]]\
-        .value_counts("artist")\
-        .sort_values(ascending=True)
-
-    df_duo = df[df["mask"]]\
-        .value_counts("artist")\
-        .sort_values(ascending=True)
+    df_solo = df[~df["mask"]].value_counts("artist", ascending=True)
+    df_duo = df[df["mask"]].value_counts("artist", ascending=True)
 
     # start plotting
     fig, axes = plt.subplots(nrows=2)
@@ -65,9 +63,11 @@ def plot_mana_cost(df: pd.DataFrame):
     Plot the cards by their mana cost
     """
 
-    df = df.drop_duplicates(subset=["name", "manaValue"])\
-        .value_counts("manaValue")\
-        .sort_index()\
+    df = (
+        df.drop_duplicates(subset=["name", "manaValue"])
+        .value_counts("manaValue")
+        .sort_index()
+    )
 
     plot = df.plot(kind="bar", rot=0)
     plot.bar_label(plot.containers[0])
@@ -79,12 +79,12 @@ def plot_mana_cost(df: pd.DataFrame):
 
 
 def main():
-
     df = pd.read_csv("./cards.csv")
 
     plot_mana_cost(df)
     plot_reprint(df)
     plot_artist(df)
+
 
 if __name__ == "__main__":
     main()
