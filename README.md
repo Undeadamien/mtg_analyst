@@ -1,9 +1,10 @@
 # Exploratory analysis of Magic the Gathering
 
-Data analysis on different datasets which can be found at https://mtgjson.com/downloads/all-files/
+The datasets can be found at _https://mtgjson.com/downloads/all-files/_
 
-- allprints: contains information on all printed cards and their variations
-- allsets: contains information on all sets of cards
-- alldecks: all decks: contains information on all decks officially released
+Magic The Gathering (MTG) is a trading card game first published in 1993 by Wizards of the Coast. This game has seen immense popularity and new cards are still released every few months.
 
-I'm still working to add new graphics
+For now i have only explored the following files:
+
+- AllPrintingsCSVFiles _https://mtgjson.com/api/v5/AllPrintingsCSVFiles.zip_ <br>
+  This file contains informations on all printed cards and their variants. <br>
