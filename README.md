@@ -1,10 +1,9 @@
-# Exploratory analysis of Magic the Gathering
+# Data Analysis of Magic the Gathering Cards Datasets
 
-The datasets can be found at _https://mtgjson.com/downloads/all-files/_
+This repository contains several Jupyter Notebooks analyzing datasets that can be found on https://mtgjson.com/.
+The project's objective is to explore, clean, and analyze the Magic: The Gathering card data to gain insights and reveal interesting facts.
 
-Magic The Gathering (MTG) is a trading card game first published in 1993 by Wizards of the Coast. This game has seen immense popularity and new cards are still released every few months.
+## Datasets
 
-For now i have only explored the following files:
-
-- AllPrintingsCSVFiles _https://mtgjson.com/api/v5/AllPrintingsCSVFiles.zip_ <br>
-  This file contains informations on all printed cards and their variants. <br>
+- **cards.csv**: This dataset contains information about individual card prints, including attributes such as name, set, rarity, and more.
+- **allPrices.csv**: This dataset contains price-related information, including market prices and pricing details.
